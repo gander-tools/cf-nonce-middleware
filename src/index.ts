@@ -2,7 +2,7 @@ import { ExecutionContext } from '@cloudflare/workers-types/2023-07-01/index';
 
 export default {
 	async fetch(request, env, ctx: ExecutionContext): Promise<Response> {
-		const NONCE_REGEX = (env.NONCE_REGEX && new RegExp(env.NONCE_REGEX)) || /{{NONCE}}/g;
+		const NONCE_REGEX = (env.NONCE_REGEX && new RegExp(env.NONCE_REGEX, 'g')) || /{{NONCE}}/g;
 		const response = await fetch(request);
 
 		if (!response.headers.get('Content-Type')?.startsWith('text/')) {
